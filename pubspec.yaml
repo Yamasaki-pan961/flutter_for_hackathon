@@ -22,6 +22,7 @@ dependencies:
   riverpod_annotation: ^2.1.6
   rxdart: ^0.27.7
   four_swipe_direction: ^0.0.4
+  dropdown_button2: ^2.3.9
 
 dev_dependencies:
   flutter_test:
