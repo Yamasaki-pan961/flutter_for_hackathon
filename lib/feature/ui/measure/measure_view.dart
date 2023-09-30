@@ -147,28 +147,46 @@ class _MeasureViewState extends State<MeasureView>
               AppSpaces.horizontal_8,
             ],
           ),
+          AppSpaces.vertical_60,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 94),
             child: Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: AppTheme.appColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    )),
+                  backgroundColor: AppTheme.appColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text(
-                      'START',
-                      style: TextStyle(
-                        fontSize: 28.9,
-                        fontWeight: FontWeight.bold,
-                      ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: FractionalOffset.topLeft,
+                      end: FractionalOffset.bottomRight,
+                      colors: <Color>[
+                        AppTheme.buttonStart,
+                        AppTheme.buttonEnd,
+                      ],
+                      stops: const [
+                        0.0,
+                        1.0,
+                      ],
                     ),
-                    Image.asset('assets/start.png'),
-                  ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const Text(
+                        'START',
+                        style: TextStyle(
+                          fontSize: 28.9,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Image.asset('assets/start.png'),
+                    ],
+                  ),
                 ),
               ),
             ),
