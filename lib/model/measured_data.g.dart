@@ -16,8 +16,8 @@ _$MeasuredDataImpl _$$MeasuredDataImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$MeasuredDataImplToJson(_$MeasuredDataImpl instance) =>
     <String, dynamic>{
-      'acceleration': instance.acceleration,
-      'gyroscope': instance.gyroscope,
+      'acceleration': instance.acceleration.toJson(),
+      'gyroscope': instance.gyroscope.toJson(),
       'duration': instance.duration.inMicroseconds,
     };
 

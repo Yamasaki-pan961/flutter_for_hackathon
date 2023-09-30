@@ -26,6 +26,7 @@ class MeasuredData with _$MeasuredData {
 
 @freezed
 class Acceleration with _$Acceleration {
+  const Acceleration._();
   const factory Acceleration(double x, double y, double z) = _Acceleration;
   factory Acceleration.fromJson(Map<String, Object?> json) =>
       _$AccelerationFromJson(json);
@@ -33,6 +34,7 @@ class Acceleration with _$Acceleration {
 
 @freezed
 class Gyroscope with _$Gyroscope {
+  const Gyroscope._();
   const factory Gyroscope(double x, double y, double z) = _Gyroscope;
   factory Gyroscope.fromJson(Map<String, Object?> json) =>
       _$GyroscopeFromJson(json);

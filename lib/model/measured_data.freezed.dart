@@ -324,8 +324,8 @@ class __$$AccelerationImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AccelerationImpl implements _Acceleration {
-  const _$AccelerationImpl(this.x, this.y, this.z);
+class _$AccelerationImpl extends _Acceleration {
+  const _$AccelerationImpl(this.x, this.y, this.z) : super._();
 
   factory _$AccelerationImpl.fromJson(Map<String, dynamic> json) =>
       _$$AccelerationImplFromJson(json);
@@ -370,9 +370,10 @@ class _$AccelerationImpl implements _Acceleration {
   }
 }
 
-abstract class _Acceleration implements Acceleration {
+abstract class _Acceleration extends Acceleration {
   const factory _Acceleration(final double x, final double y, final double z) =
       _$AccelerationImpl;
+  const _Acceleration._() : super._();
 
   factory _Acceleration.fromJson(Map<String, dynamic> json) =
       _$AccelerationImpl.fromJson;
@@ -492,8 +493,8 @@ class __$$GyroscopeImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$GyroscopeImpl implements _Gyroscope {
-  const _$GyroscopeImpl(this.x, this.y, this.z);
+class _$GyroscopeImpl extends _Gyroscope {
+  const _$GyroscopeImpl(this.x, this.y, this.z) : super._();
 
   factory _$GyroscopeImpl.fromJson(Map<String, dynamic> json) =>
       _$$GyroscopeImplFromJson(json);
@@ -538,9 +539,10 @@ class _$GyroscopeImpl implements _Gyroscope {
   }
 }
 
-abstract class _Gyroscope implements Gyroscope {
+abstract class _Gyroscope extends Gyroscope {
   const factory _Gyroscope(final double x, final double y, final double z) =
       _$GyroscopeImpl;
+  const _Gyroscope._() : super._();
 
   factory _Gyroscope.fromJson(Map<String, dynamic> json) =
       _$GyroscopeImpl.fromJson;
