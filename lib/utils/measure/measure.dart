@@ -15,7 +15,7 @@ Vector3 nowVelocity = Vector3.zero();
 
 /// 設定された距離を移動したら、[callback]が実行される関数
 ///
-/// 実装前なので[meter]/5秒経つと[callback]が実行される
+/// [meter]ｍ移動すると[callback]が実行される
 Future<List<MeterRecord>> measureMeter(int meter, Function() callback) async {
   final container = ProviderContainer();
   final completer = Completer<void>();
