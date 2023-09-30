@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template_for_hackathon/common/theme/app_spaces.dart';
+import 'package:flutter_template_for_hackathon/common/theme/app_theme.dart';
+import 'package:flutter_template_for_hackathon/feature/ui/record/children/deital_list_tile.dart';
 
 class RecordDetailView extends StatefulWidget {
   const RecordDetailView({Key? key}) : super(key: key);
@@ -11,8 +12,8 @@ class RecordDetailView extends StatefulWidget {
 
 class _RecordDetailViewState extends State<RecordDetailView> {
   List<Color> gradientColors = [
-    const Color(0xFF72F1B7),
-    const Color(0xFF72F1B7),
+    AppTheme.appColor,
+    AppTheme.appColor,
   ];
 
   //縦軸　速度
@@ -26,9 +27,9 @@ class _RecordDetailViewState extends State<RecordDetailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppTheme.backgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: AppTheme.backgroundColor,
       ),
       body: Column(
         children: [
@@ -50,38 +51,20 @@ class _RecordDetailViewState extends State<RecordDetailView> {
               ),
             ],
           ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CircleAvatar(
-                backgroundColor: Colors.grey.shade700,
-                radius: 30,
-                child: const Icon(
-                  Icons.av_timer,
-                  color: Colors.white,
-                  size: 35,
-                ),
-              ),
-              AppSpaces.horizontal_16,
-              const Column(
-                children: [
-                  Text(
-                    'タイム',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
-                  Text(
-                    '7.13s',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+          const DetailListTile(
+            icon: Icons.av_timer,
+            title: 'タイム',
+            content: '7.13s',
+          ),
+          const DetailListTile(
+            icon: Icons.directions_run,
+            title: '日付',
+            content: '2023/09/30',
+          ),
+          const DetailListTile(
+            icon: Icons.map,
+            title: '距離',
+            content: '50m',
           ),
         ],
       ),

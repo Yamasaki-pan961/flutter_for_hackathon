@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template_for_hackathon/common/theme/app_spaces.dart';
+import 'package:flutter_template_for_hackathon/common/theme/app_theme.dart';
 
 class RecordCell extends StatelessWidget {
   const RecordCell({
@@ -22,33 +23,33 @@ class RecordCell extends StatelessWidget {
     return ListTile(
       onTap: onTap,
       leading: CircleAvatar(
-        backgroundColor: Colors.grey.shade700,
+        backgroundColor: AppTheme.shade700Color,
         radius: 20,
         child: Icon(
           icon,
-          color: Colors.greenAccent,
+          color: AppTheme.appColor,
         ),
       ),
       title: Row(
         children: [
           Text(
             distance,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: AppTheme.textColor,
             ),
           ),
           Icon(
             icon,
-            color: Colors.white,
+            color: AppTheme.textColor,
           ),
         ],
       ),
       subtitle: Text(
         date,
-        style: const TextStyle(
-          color: Colors.grey,
+        style: TextStyle(
+          color: AppTheme.grey,
           fontSize: 13,
           fontWeight: FontWeight.bold,
         ),
@@ -58,16 +59,16 @@ class RecordCell extends StatelessWidget {
         children: [
           Text(
             time,
-            style: const TextStyle(
-              color: Colors.white,
+            style: TextStyle(
+              color: AppTheme.textColor,
               fontWeight: FontWeight.bold,
               fontSize: 25,
             ),
           ),
           AppSpaces.horizontal_4,
-          const Icon(
+          Icon(
             Icons.arrow_forward_ios,
-            color: Colors.grey,
+            color: AppTheme.grey,
             size: 20,
           ),
         ],
