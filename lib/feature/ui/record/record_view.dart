@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template_for_hackathon/common/theme/app_theme.dart';
 import 'package:flutter_template_for_hackathon/feature/component/record_cell.dart';
 import 'package:flutter_template_for_hackathon/feature/ui/record/children/empty_screen.dart';
 import 'package:flutter_template_for_hackathon/feature/ui/record/record_detail_view.dart';
@@ -16,10 +17,10 @@ class _RecordViewState extends State<RecordView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppTheme.backgroundColor,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.black,
+        backgroundColor: AppTheme.backgroundColor,
         actions: [
           //TODO emptyの画面を仮に出している。
           IconButton(
@@ -50,17 +51,17 @@ class _RecordViewState extends State<RecordView> {
                 foregroundColor: MaterialStateProperty.resolveWith<Color>(
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.selected)) {
-                      return const Color(0xFF72F1B7);
+                      return AppTheme.appColor;
                     }
-                    return const Color(0xFF606060);
+                    return AppTheme.unSelectedColor;
                   },
                 ),
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.selected)) {
-                      return const Color(0xFF606060);
+                      return AppTheme.unSelectedColor;
                     }
-                    return Colors.black;
+                    return AppTheme.backgroundColor;
                   },
                 ),
               ),
