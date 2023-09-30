@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  const ProviderScope(
+    child: MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -22,6 +25,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
+
   final String title;
 
   @override
