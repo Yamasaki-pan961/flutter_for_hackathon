@@ -3,9 +3,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_template_for_hackathon/ui/measure/debug_measure.dart';
 
 void main() {
-  const ProviderScope(
+  runApp(const ProviderScope(
     child: MyApp(),
-  );
+  ));
 }
 
 class MyApp extends StatelessWidget {
