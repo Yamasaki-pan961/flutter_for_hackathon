@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template_for_hackathon/feature/ui/record/record_view.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  const ProviderScope(
+    child: MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
