@@ -1,9 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_template_for_hackathon/model/measured_data.dart';
-import 'package:flutter_template_for_hackathon/utils/json.dart';
 
-final pocketInOut = (jsonEncode(_json) as List<Json>)
+final pocketInOut = (jsonDecode(_json) as List)
     .map((e) => MeasuredData.fromJson(e))
     .toList();
 
