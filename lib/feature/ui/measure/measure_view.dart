@@ -151,19 +151,17 @@ class _MeasureViewState extends State<MeasureView>
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 94),
             child: Center(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppTheme.appColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                onPressed: () {},
-                child: Container(
+              child: Container(
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(34),
+                        topRight: Radius.circular(6.8),
+                        bottomRight: Radius.circular(34),
+                        bottomLeft: Radius.circular(6.8)
+                    ),
                     gradient: LinearGradient(
-                      begin: FractionalOffset.topLeft,
-                      end: FractionalOffset.bottomRight,
+                      begin: FractionalOffset.centerLeft,
+                      end: FractionalOffset.centerRight,
                       colors: <Color>[
                         AppTheme.buttonStart,
                         AppTheme.buttonEnd,
@@ -174,19 +172,29 @@ class _MeasureViewState extends State<MeasureView>
                       ],
                     ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const Text(
-                        'START',
-                        style: TextStyle(
-                          fontSize: 28.9,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                    ),
+                    onPressed: () {},
+                    child: Container(
+                      height: 68,
+                      width: 202,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Image.asset('assets/start.png'),
+                          const Text(
+                            'Ready',
+                            style: TextStyle(
+                              fontSize: 28.9,
+                              fontWeight: FontWeight.bold,
+                              color: AppTheme.backgroundColor,
+                            ),
+                          ),
+                        ],
                       ),
-                      Image.asset('assets/start.png'),
-                    ],
-                  ),
+                    ),
                 ),
               ),
             ),
