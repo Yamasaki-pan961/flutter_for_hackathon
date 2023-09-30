@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template_for_hackathon/common/theme/app_theme.dart';
+import 'package:four_swipe_direction/four_swipe_direction.dart';
 
 class MeasureView extends StatefulWidget {
   const MeasureView({Key? key}) : super(key: key);
@@ -35,48 +36,61 @@ class _MeasureViewState extends State<MeasureView>
           ),
         ],
       ),
-      body: Stack(
-        children: [
-          Transform.translate(
-            offset: const Offset(-125, 0),
-            child: AnimatedContainer(
-              margin: EdgeInsets.only(left: isTimer ? 0 : 75),
-              duration: const Duration(milliseconds: 200),
-              width: 300,
-              height: 300,
-              child: AnimatedPadding(
-                duration: const Duration(milliseconds: 200),
-                padding: EdgeInsets.only(
-                    top: isTimer ? 75 : 0, bottom: isTimer ? 75 : 0),
-                child: CircleAvatar(
-                  backgroundColor:
-                      isTimer ? AppTheme.textColor : AppTheme.shade700Color,
-                ),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topRight,
-            child: Transform.translate(
-              offset: const Offset(125, 0),
+      body: FourSwipeDirection(
+        swipeRight: () {
+          setState(() {
+            isTimer = !isTimer;
+          });
+        },
+        swipeLeft: () {
+          setState(() {
+            isTimer = !isTimer;
+          });
+        },
+        child: Stack(
+          children: [
+            Transform.translate(
+              offset: const Offset(-125, 0),
               child: AnimatedContainer(
-                margin: EdgeInsets.only(right: !isTimer ? 0 : 75),
+                margin: EdgeInsets.only(left: isTimer ? 0 : 75),
                 duration: const Duration(milliseconds: 200),
                 width: 300,
                 height: 300,
                 child: AnimatedPadding(
                   duration: const Duration(milliseconds: 200),
                   padding: EdgeInsets.only(
-                      top: !isTimer ? 75 : 0, bottom: !isTimer ? 75 : 0),
+                      top: isTimer ? 75 : 0, bottom: isTimer ? 75 : 0),
                   child: CircleAvatar(
                     backgroundColor:
-                    !isTimer ? AppTheme.textColor : AppTheme.shade700Color,
+                        isTimer ? AppTheme.textColor : AppTheme.shade700Color,
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+            Align(
+              alignment: Alignment.topRight,
+              child: Transform.translate(
+                offset: const Offset(125, 0),
+                child: AnimatedContainer(
+                  margin: EdgeInsets.only(right: !isTimer ? 0 : 75),
+                  duration: const Duration(milliseconds: 200),
+                  width: 300,
+                  height: 300,
+                  child: AnimatedPadding(
+                    duration: const Duration(milliseconds: 200),
+                    padding: EdgeInsets.only(
+                        top: !isTimer ? 75 : 0, bottom: !isTimer ? 75 : 0),
+                    child: CircleAvatar(
+                      backgroundColor: !isTimer
+                          ? AppTheme.textColor
+                          : AppTheme.shade700Color,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

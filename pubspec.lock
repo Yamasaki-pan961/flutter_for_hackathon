@@ -336,6 +336,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  four_swipe_direction:
+    dependency: "direct main"
+    description:
+      name: four_swipe_direction
+      sha256: efc701cf62dfcd6e83492fd117b9a04b9e609b208d312cde95e1e62dd32126bb
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   freezed:
     dependency: "direct dev"
     description:

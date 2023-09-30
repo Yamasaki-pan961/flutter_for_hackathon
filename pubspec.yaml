@@ -21,6 +21,7 @@ dependencies:
   flutter_hooks: ^0.20.1
   riverpod_annotation: ^2.1.6
   rxdart: ^0.27.7
+  four_swipe_direction: ^0.0.4
 
 dev_dependencies:
   flutter_test:
