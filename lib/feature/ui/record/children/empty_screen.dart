@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template_for_hackathon/common/theme/app_spaces.dart';
+import 'package:flutter_template_for_hackathon/common/theme/app_theme.dart';
 
 class EmptyScreen extends StatelessWidget {
   const EmptyScreen({Key? key}) : super(key: key);
@@ -17,25 +18,26 @@ class EmptyScreen extends StatelessWidget {
           children: [
             Image.asset('assets/vector.png'),
             AppSpaces.vertical_30,
-            const Text(
+            Text(
               '記録がありません\n'
               ' 計測して記録を取りましょう',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
+                color: AppTheme.textColor,
               ),
             ),
             AppSpaces.vertical_40,
             TextButton(
               onPressed: () {
-                //TODO 計測画面に遷移をする
+                Navigator.pop(context);
               },
-              child: const Text(
+              child: Text(
                 '計測する',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF72F1B7),
+                  color: AppTheme.appColor,
                   fontSize: 20,
                 ),
               ),
