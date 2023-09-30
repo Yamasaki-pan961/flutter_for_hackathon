@@ -63,6 +63,10 @@ class _MeasureViewState extends State<MeasureView>
                   child: CircleAvatar(
                     backgroundColor:
                         !isTimer ? AppTheme.textColor : AppTheme.shade700Color,
+                    child: Icon(
+                      Icons.av_timer,
+                      size: !isTimer ? 155 : 78,
+                    ),
                   ),
                 ),
               ),
@@ -83,6 +87,10 @@ class _MeasureViewState extends State<MeasureView>
                     child: CircleAvatar(
                       backgroundColor:
                           isTimer ? AppTheme.textColor : AppTheme.shade700Color,
+                      child: Icon(
+                        Icons.directions_run,
+                        size: isTimer ? 155 : 78,
+                      ),
                     ),
                   ),
                 ),
