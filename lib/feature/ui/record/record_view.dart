@@ -39,6 +39,12 @@ class RecordView extends ConsumerWidget {
             width: double.infinity,
             child: SegmentedButton<int>(
               style: ButtonStyle(
+                side: MaterialStateProperty.resolveWith<BorderSide>(
+                    (Set<MaterialState> states) {
+                  return BorderSide(
+                    color: AppTheme.unSelectedColor,
+                  );
+                }),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4),
@@ -49,13 +55,13 @@ class RecordView extends ConsumerWidget {
                     if (states.contains(MaterialState.selected)) {
                       return AppTheme.appColor;
                     }
-                    return AppTheme.unSelectedColor;
+                    return AppTheme.shade700Color;
                   },
                 ),
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.selected)) {
-                      return AppTheme.unSelectedColor;
+                      return AppTheme.shade700Color;
                     }
                     return AppTheme.backgroundColor;
                   },
@@ -115,6 +121,7 @@ Widget _recordBody(
           return RecordCell(
             time: '7.32s',
             icon: Icons.av_timer,
+            subIcon: Icons.directions_run,
             distance: '50m',
             date: '2023/09/30',
             onTap: () {
@@ -135,9 +142,10 @@ Widget _recordBody(
         itemCount: 2,
         itemBuilder: (context, index) {
           return RecordCell(
-            time: '7.32s',
-            icon: Icons.directions_run,
-            distance: '50m',
+            time: '50m',
+            icon: Icons.av_timer,
+            subIcon: Icons.directions_run,
+            distance: '7.32s',
             date: '2023/09/30',
             onTap: () {
               Navigator.push(

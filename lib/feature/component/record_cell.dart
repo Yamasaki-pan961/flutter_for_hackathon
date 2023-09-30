@@ -6,6 +6,7 @@ class RecordCell extends StatelessWidget {
   const RecordCell({
     Key? key,
     required this.icon,
+    required this.subIcon,
     required this.time,
     required this.distance,
     required this.date,
@@ -13,6 +14,7 @@ class RecordCell extends StatelessWidget {
   }) : super(key: key);
 
   final IconData icon;
+  final IconData subIcon;
   final String time;
   final String distance;
   final String date;
@@ -41,7 +43,7 @@ class RecordCell extends StatelessWidget {
             ),
           ),
           Icon(
-            icon,
+            subIcon,
             color: AppTheme.textColor,
           ),
         ],
