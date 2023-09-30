@@ -1,4 +1,7 @@
+import 'package:flutter_template_for_hackathon/utils/measure/calculate_provider.dart';
+import 'package:flutter_template_for_hackathon/utils/measure/measure.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'data/naname_riron.dart';
 import 'data/pocket_in.dart';
@@ -28,7 +31,18 @@ void main() {
         await stream.listen((event) {
           print(event);
         }).asFuture();
+      });
 
+      test('measure()のテスト', () async {
+        final container = ProviderContainer();
+        addTearDown(container.dispose);
+
+        final stream = streamMockBuilder(zKaiten);
+        await stream.listen((measuredData) {
+          measure(measuredData, container);
+        }).asFuture();
+
+        print(container.read(meterProvider));
       });
     },
   );
