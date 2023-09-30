@@ -16,6 +16,7 @@ dependencies:
   json_annotation: ^4.8.1
   hooks_riverpod: ^2.4.1
   shared_preferences: ^2.2.1
+  sensors_plus: ^3.0.3
 
 dev_dependencies:
   flutter_test:
