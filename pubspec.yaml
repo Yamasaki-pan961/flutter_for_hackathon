@@ -17,6 +17,7 @@ dependencies:
   hooks_riverpod: ^2.4.1
   shared_preferences: ^2.2.1
   sensors_plus: ^3.0.3
+  flutter_hooks: ^0.20.1
 
 dev_dependencies:
   flutter_test:
