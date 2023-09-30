@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template_for_hackathon/common/theme/app_theme.dart';
 import 'package:flutter_template_for_hackathon/feature/component/record_cell.dart';
+import 'package:flutter_template_for_hackathon/feature/provider/record_provider.dart';
 import 'package:flutter_template_for_hackathon/feature/ui/record/children/empty_screen.dart';
 import 'package:flutter_template_for_hackathon/feature/ui/record/record_detail_view.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class RecordView extends StatefulWidget {
+class RecordView extends ConsumerWidget {
   const RecordView({Key? key}) : super(key: key);
 
   @override
-  State<RecordView> createState() => _RecordViewState();
-}
-
-class _RecordViewState extends State<RecordView> {
-  Set<int> tab = {0};
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(recordProvider);
     return Scaffold(
       backgroundColor: AppTheme.backgroundColor,
       appBar: AppBar(
@@ -66,9 +62,7 @@ class _RecordViewState extends State<RecordView> {
                 ),
               ),
               onSelectionChanged: (value) {
-                setState(() {
-                  tab = value;
-                });
+                ref.read(recordProvider.notifier).changeTab(value);
               },
               showSelectedIcon: false,
               segments: const [
@@ -99,10 +93,10 @@ class _RecordViewState extends State<RecordView> {
                   ),
                 )
               ],
-              selected: tab,
+              selected: state,
             ),
           ),
-          _recordBody(tab.single),
+          _recordBody(state.single),
         ],
       ),
     );
