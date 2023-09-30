@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_template_for_hackathon/utils/measure/acceleration.dart';
 
@@ -17,11 +18,13 @@ class DebugMeasure extends HookWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
-                onPressed: () {
+                onPressed: () async {
                   isMeasure.value = !isMeasure.value;
                   if (isMeasure.value) {
                     completer.value = Completer<void>();
-                    accelerationLog(completer.value);
+                    final list = await accelerationLog(completer.value);
+                    Clipboard.setData(ClipboardData(
+                        text: list.map((e) => e.toJson()).toList().toString()));
                   } else {
                     completer.value.complete();
                   }
