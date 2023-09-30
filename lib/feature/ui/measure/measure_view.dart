@@ -26,23 +26,16 @@ class _MeasureViewState extends State<MeasureView>
     return Scaffold(
       backgroundColor: AppTheme.backgroundColor,
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: AppTheme.backgroundColor,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  isTimer = !isTimer;
-                });
-              },
-              child: const Icon(
-                Icons.swap_horiz,
-                size: 45,
-              ),
-            ),
-          ),
-        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.history,
+          color: Colors.white,
+        ),
+        backgroundColor: AppTheme.shade700Color,
+        onPressed: (){},
       ),
       body: Column(
         children: [
