@@ -14,7 +14,7 @@ Future<List<MeasuredData>> accelerationLog(Completer<void> completer) async {
       (UserAccelerometerEvent accelerometerEvent,
           GyroscopeEvent gyroscopeEvent) {
     final now = getNowDate();
-    final duration = logStartTime.difference(now);
+    final duration = now.difference(logStartTime);
     return MeasuredData.fromEvent(accelerometerEvent, gyroscopeEvent, duration);
   }).listen((event) {
     list.add(event);
