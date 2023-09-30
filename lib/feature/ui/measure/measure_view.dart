@@ -62,7 +62,7 @@ class _MeasureViewState extends State<MeasureView>
                       top: isTimer ? 75 : 0, bottom: isTimer ? 75 : 0),
                   child: CircleAvatar(
                     backgroundColor:
-                        isTimer ? AppTheme.textColor : AppTheme.shade700Color,
+                        !isTimer ? AppTheme.textColor : AppTheme.shade700Color,
                   ),
                 ),
               ),
@@ -81,9 +81,8 @@ class _MeasureViewState extends State<MeasureView>
                     padding: EdgeInsets.only(
                         top: !isTimer ? 75 : 0, bottom: !isTimer ? 75 : 0),
                     child: CircleAvatar(
-                      backgroundColor: !isTimer
-                          ? AppTheme.textColor
-                          : AppTheme.shade700Color,
+                      backgroundColor:
+                          isTimer ? AppTheme.textColor : AppTheme.shade700Color,
                     ),
                   ),
                 ),
