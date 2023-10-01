@@ -3,6 +3,11 @@ import 'package:flutter_template_for_hackathon/utils/measure/measure.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'data/android_pocket_in.dart';
+import 'data/android_riron.dart';
+import 'data/android_riron_second.dart';
+import 'data/android_riron_ura.dart';
+import 'data/android_temoti.dart';
 import 'data/naname_riron.dart';
 import 'data/pocket_in.dart';
 import 'data/pocket_in_out.dart';
@@ -18,6 +23,11 @@ void main() {
       test(
         '計測Jsonをエラーなく読み込めるか',
         () async {
+          androidPocketIn;
+          androidRiron;
+          androidRironSecond;
+          androidRironUra;
+          androidTemoti;
           nanameRiron;
           pocketIn;
           pocketInOut;
@@ -37,7 +47,7 @@ void main() {
         final container = ProviderContainer();
         addTearDown(container.dispose);
 
-        final stream = streamMockBuilder(zKaiten);
+        final stream = streamMockBuilder(androidRironSecond);
         await stream.listen((measuredData) {
           measure(measuredData, container);
         }).asFuture();
