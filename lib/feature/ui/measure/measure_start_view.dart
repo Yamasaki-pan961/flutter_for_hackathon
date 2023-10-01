@@ -7,9 +7,13 @@ class MeasureStartView extends StatefulWidget {
   const MeasureStartView({
     Key? key,
     required this.countdown,
+    required this.time,
+    required this.distance,
   }) : super(key: key);
 
   final int countdown;
+  final int distance;
+  final int time;
 
   @override
   State<MeasureStartView> createState() => _MeasureStartViewState();

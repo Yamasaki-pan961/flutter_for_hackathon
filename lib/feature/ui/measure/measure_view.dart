@@ -27,13 +27,13 @@ class _MeasureViewState extends State<MeasureView>
   ];
 
   TextEditingController distanceTextController =
-      TextEditingController(text: '5s');
-  TextEditingController timeTextController = TextEditingController(text: '5s');
+      TextEditingController(text: '20');
+  TextEditingController timeTextController = TextEditingController(text: '5');
   String countdownText = '5s';
 
   int timer = 0;
   int distance = 0;
-  int countdown = 0;
+  int countdown = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -150,9 +150,9 @@ class _MeasureViewState extends State<MeasureView>
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        '時間',
-                        style: TextStyle(
+                      Text(
+                        isTimer ? '距離' : '時間',
+                        style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                           color: AppTheme.appColor,
@@ -161,11 +161,11 @@ class _MeasureViewState extends State<MeasureView>
                       isTimer
                           ? AppTextField(
                               isTimer: false,
-                              controller: timeTextController,
+                              controller: distanceTextController,
                             )
                           : AppTextField(
                               isTimer: true,
-                              controller: distanceTextController,
+                              controller: timeTextController,
                             ),
                     ],
                   ),
@@ -173,7 +173,6 @@ class _MeasureViewState extends State<MeasureView>
                     title: 'スタートまで',
                     genderItems: timeItems,
                     onChanged: (value) {
-                      //TODO 5s -> 5に変える必要がある
                       countdownText = value!;
                       String newText = countdownText.replaceAll('s', '');
                       countdown = int.parse(newText);
@@ -189,12 +188,15 @@ class _MeasureViewState extends State<MeasureView>
                 buttonStart: AppTheme.buttonStart,
                 buttonEnd: AppTheme.buttonEnd,
                 onPressed: () {
-                  //TODO 計測画面に遷移をする
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => MeasureStartView(
                         countdown: countdown,
+                        distance: !isTimer
+                            ? 0
+                            : int.parse(distanceTextController.text),
+                        time: isTimer ? 0 : int.parse(timeTextController.text),
                       ),
                     ),
                   );
