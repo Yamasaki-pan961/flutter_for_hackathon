@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'feature/ui/measure/measure_view.dart';
-import 'feature/ui/record/record_view.dart';
 
 void main() {
   runApp(
