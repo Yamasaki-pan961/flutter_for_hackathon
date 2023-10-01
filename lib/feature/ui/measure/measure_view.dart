@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template_for_hackathon/common/theme/app_spaces.dart';
 import 'package:flutter_template_for_hackathon/common/theme/app_theme.dart';
 import 'package:flutter_template_for_hackathon/feature/component/app_elevated_button.dart';
+import 'package:flutter_template_for_hackathon/feature/component/app_text_fielld.dart';
 import 'package:flutter_template_for_hackathon/feature/component/picker_item.dart';
+import 'package:flutter_template_for_hackathon/feature/ui/measure/measure_start_view.dart';
 import 'package:flutter_template_for_hackathon/feature/ui/record/record_view.dart';
 import 'package:four_swipe_direction/four_swipe_direction.dart';
 
@@ -17,171 +19,205 @@ class _MeasureViewState extends State<MeasureView>
     with SingleTickerProviderStateMixin {
   bool isTimer = true;
 
-  //距離
-  //TODO 項目をあとで確認する
-  final List<String> distanceItems = [
-    'Male',
-    'Female',
-  ];
-
-  //スタートまで
-  //TODO 項目をあとで確認する
   final List<String> timeItems = [
-    'Male',
-    'Female',
+    '3s',
+    '5s',
+    '7s',
+    '1s0',
   ];
 
-  String distance = '';
-  String time = '';
+  TextEditingController distanceTextController =
+      TextEditingController(text: '5s');
+  TextEditingController timeTextController = TextEditingController(text: '5s');
+  String countdownText = '5s';
+
+  int timer = 0;
+  int distance = 0;
+  int countdown = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppTheme.backgroundColor,
-      appBar: AppBar(
-        elevation: 0,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
         backgroundColor: AppTheme.backgroundColor,
-      ),
-      body: Column(
-        children: [
-          FourSwipeDirection(
-            swipeRight: () {
-              setState(() {
-                isTimer = !isTimer;
-              });
-            },
-            swipeLeft: () {
-              setState(() {
-                isTimer = !isTimer;
-              });
-            },
-            child: Stack(
-              children: [
-                Transform.translate(
-                  offset: const Offset(-125, 0),
-                  child: AnimatedContainer(
-                    margin: EdgeInsets.only(left: isTimer ? 0 : 75),
-                    duration: const Duration(milliseconds: 200),
-                    width: 300,
-                    height: 300,
-                    child: AnimatedPadding(
-                      duration: const Duration(milliseconds: 200),
-                      padding: EdgeInsets.only(
-                          top: isTimer ? 75 : 0, bottom: isTimer ? 75 : 0),
-                      child: CircleAvatar(
-                        backgroundColor: !isTimer
-                            ? AppTheme.textColor
-                            : AppTheme.shade700Color,
-                        child: Icon(
-                          Icons.av_timer,
-                          size: !isTimer ? 155 : 78,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Transform.translate(
-                    offset: const Offset(125, 0),
-                    child: AnimatedContainer(
-                      margin: EdgeInsets.only(right: !isTimer ? 0 : 75),
-                      duration: const Duration(milliseconds: 200),
-                      width: 300,
-                      height: 300,
-                      child: AnimatedPadding(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: AppTheme.backgroundColor,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              FourSwipeDirection(
+                swipeRight: () {
+                  setState(() {
+                    isTimer = !isTimer;
+                  });
+                },
+                swipeLeft: () {
+                  setState(() {
+                    isTimer = !isTimer;
+                  });
+                },
+                child: Stack(
+                  children: [
+                    Transform.translate(
+                      offset: const Offset(-125, 0),
+                      child: AnimatedContainer(
+                        margin: EdgeInsets.only(left: isTimer ? 0 : 75),
                         duration: const Duration(milliseconds: 200),
-                        padding: EdgeInsets.only(
-                            top: !isTimer ? 75 : 0, bottom: !isTimer ? 75 : 0),
-                        child: CircleAvatar(
-                          backgroundColor: isTimer
-                              ? AppTheme.textColor
-                              : AppTheme.shade700Color,
-                          child: Icon(
-                            Icons.directions_run,
-                            size: isTimer ? 155 : 78,
+                        width: 300,
+                        height: 300,
+                        child: AnimatedPadding(
+                          duration: const Duration(milliseconds: 200),
+                          padding: EdgeInsets.only(
+                              top: isTimer ? 75 : 0, bottom: isTimer ? 75 : 0),
+                          child: CircleAvatar(
+                            backgroundColor: !isTimer
+                                ? AppTheme.textColor
+                                : AppTheme.shade700Color,
+                            child: Icon(
+                              Icons.av_timer,
+                              size: !isTimer ? 155 : 78,
+                            ),
                           ),
                         ),
                       ),
                     ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Transform.translate(
+                        offset: const Offset(125, 0),
+                        child: AnimatedContainer(
+                          margin: EdgeInsets.only(right: !isTimer ? 0 : 75),
+                          duration: const Duration(milliseconds: 200),
+                          width: 300,
+                          height: 300,
+                          child: AnimatedPadding(
+                            duration: const Duration(milliseconds: 200),
+                            padding: EdgeInsets.only(
+                                top: !isTimer ? 75 : 0,
+                                bottom: !isTimer ? 75 : 0),
+                            child: CircleAvatar(
+                              backgroundColor: isTimer
+                                  ? AppTheme.textColor
+                                  : AppTheme.shade700Color,
+                              child: Icon(
+                                Icons.directions_run,
+                                size: isTimer ? 155 : 78,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              AppSpaces.vertical_16,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AppSpaces.horizontal_16,
+                  Text(
+                    'Timer',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40,
+                      color: !isTimer
+                          ? AppTheme.textColor
+                          : AppTheme.backgroundColor,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          AppSpaces.vertical_16,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              AppSpaces.horizontal_16,
-              Text(
-                'Timer',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 40,
-                  color:
-                      !isTimer ? AppTheme.textColor : AppTheme.backgroundColor,
-                ),
+                  const Spacer(),
+                  Text(
+                    'Timer',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40,
+                      color: isTimer
+                          ? AppTheme.textColor
+                          : AppTheme.backgroundColor,
+                    ),
+                  ),
+                  AppSpaces.horizontal_16,
+                ],
               ),
-              const Spacer(),
-              Text(
-                'Timer',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 40,
-                  color:
-                      isTimer ? AppTheme.textColor : AppTheme.backgroundColor,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AppSpaces.horizontal_8,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '時間',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: AppTheme.appColor,
+                        ),
+                      ),
+                      isTimer
+                          ? AppTextField(
+                              isTimer: false,
+                              controller: timeTextController,
+                            )
+                          : AppTextField(
+                              isTimer: true,
+                              controller: distanceTextController,
+                            ),
+                    ],
+                  ),
+                  PickerItem(
+                    title: 'スタートまで',
+                    genderItems: timeItems,
+                    onChanged: (value) {
+                      //TODO 5s -> 5に変える必要がある
+                      countdownText = value!;
+                      String newText = countdownText.replaceAll('s', '');
+                      countdown = int.parse(newText);
+                    },
+                  ),
+                  AppSpaces.horizontal_8,
+                ],
               ),
-              AppSpaces.horizontal_16,
+              AppSpaces.vertical_60,
+              AppElevatedButton(
+                icon: 'assets/start.png',
+                title: 'Ready',
+                buttonStart: AppTheme.buttonStart,
+                buttonEnd: AppTheme.buttonEnd,
+                onPressed: () {
+                  //TODO 計測画面に遷移をする
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MeasureStartView(
+                        // countdown: countdown,
+                        countdown: 5,
+                      ),
+                    ),
+                  );
+                },
+              )
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              AppSpaces.horizontal_8,
-              PickerItem(
-                title: '距離',
-                genderItems: distanceItems,
-                onChanged: (value) {
-                  distance = value!;
-                },
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: AppTheme.shade700Color,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const RecordView(),
               ),
-              PickerItem(
-                title: 'スタートまで',
-                genderItems: timeItems,
-                onChanged: (value) {
-                  time = value!;
-                },
-              ),
-              AppSpaces.horizontal_8,
-            ],
+            );
+          },
+          child: const Icon(
+            Icons.history,
+            color: Colors.white,
           ),
-          AppSpaces.vertical_60,
-          AppElevatedButton(
-            icon: 'assets/start.png',
-            title: 'Ready',
-            buttonStart: AppTheme.buttonStart,
-            buttonEnd: AppTheme.buttonEnd,
-            onPressed: () {
-              //TODO 計測画面に遷移をする
-            },
-          )
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppTheme.shade700Color,
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const RecordView(),
-            ),
-          );
-        },
-        child: const Icon(
-          Icons.history,
-          color: Colors.white,
         ),
       ),
     );

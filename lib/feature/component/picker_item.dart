@@ -35,14 +35,11 @@ class PickerItem extends StatelessWidget {
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(vertical: 16),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(4),
+                borderSide: const BorderSide(
+                  color: AppTheme.unSelectedColor,
+                ),
               ),
-              // Add more decoration..
-            ),
-            hint: const Text(
-              //TODO あとで文言を変える
-              'Select Your Gender',
-              style: TextStyle(fontSize: 20),
             ),
             items: genderItems
                 .map((item) => DropdownMenuItem<String>(
@@ -61,14 +58,27 @@ class PickerItem extends StatelessWidget {
               }
               return null;
             },
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+              color: AppTheme.textColor,
+            ),
             onChanged: onChanged,
             buttonStyleData: const ButtonStyleData(
               padding: EdgeInsets.only(right: 8),
             ),
+            hint: const Text(
+              '5s',
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: AppTheme.textColor,
+              ),
+            ),
             iconStyleData: const IconStyleData(
               icon: Icon(
                 Icons.arrow_drop_down,
-                color: Colors.black45,
+                color: AppTheme.textColor,
               ),
               iconSize: 24,
             ),
