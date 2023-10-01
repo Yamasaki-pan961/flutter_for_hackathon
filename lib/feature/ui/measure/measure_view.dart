@@ -17,18 +17,11 @@ class _MeasureViewState extends State<MeasureView>
     with SingleTickerProviderStateMixin {
   bool isTimer = true;
 
-  //距離
-  //TODO 項目をあとで確認する
-  final List<String> distanceItems = [
-    'Male',
-    'Female',
-  ];
-
-  //スタートまで
-  //TODO 項目をあとで確認する
   final List<String> timeItems = [
-    'Male',
-    'Female',
+    '3s',
+    '5s',
+    '7s',
+    '1s0',
   ];
 
   String distance = '';
@@ -140,17 +133,22 @@ class _MeasureViewState extends State<MeasureView>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               AppSpaces.horizontal_8,
-              PickerItem(
-                title: '距離',
-                genderItems: distanceItems,
-                onChanged: (value) {
-                  distance = value!;
-                },
+              // PickerItem(
+              //   title: '距離',
+              //   genderItems: distanceItems,
+              //   onChanged: (value) {
+              //     distance = value!;
+              //   },
+              // ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 2.4,
+                child: TextField(),
               ),
               PickerItem(
                 title: 'スタートまで',
                 genderItems: timeItems,
                 onChanged: (value) {
+                  //TODO 5s -> 5に変える必要がある
                   time = value!;
                 },
               ),
