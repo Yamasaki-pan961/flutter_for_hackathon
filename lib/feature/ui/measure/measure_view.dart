@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template_for_hackathon/common/theme/app_spaces.dart';
 import 'package:flutter_template_for_hackathon/common/theme/app_theme.dart';
 import 'package:flutter_template_for_hackathon/feature/component/app_elevated_button.dart';
+import 'package:flutter_template_for_hackathon/feature/component/app_text_fielld.dart';
 import 'package:flutter_template_for_hackathon/feature/component/picker_item.dart';
 import 'package:flutter_template_for_hackathon/feature/ui/record/record_view.dart';
 import 'package:four_swipe_direction/four_swipe_direction.dart';
@@ -24,8 +25,14 @@ class _MeasureViewState extends State<MeasureView>
     '1s0',
   ];
 
-  String distance = '';
-  String time = '';
+  TextEditingController distanceTextController =
+      TextEditingController(text: '5s');
+  TextEditingController timeTextController = TextEditingController(text: '5s');
+  String countdownText = '5s';
+
+  int timer = 0;
+  int distance = 0;
+  int countdown = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -150,25 +157,15 @@ class _MeasureViewState extends State<MeasureView>
                           color: AppTheme.appColor,
                         ),
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 2.4,
-                        child: TextField(
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4),
-                              borderSide: const BorderSide(
-                                color: AppTheme.unSelectedColor,
-                              ),
+                      isTimer
+                          ? AppTextField(
+                              isTimer: false,
+                              controller: timeTextController,
+                            )
+                          : AppTextField(
+                              isTimer: true,
+                              controller: distanceTextController,
                             ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4),
-                              borderSide: const BorderSide(
-                                color: AppTheme.unSelectedColor,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                   PickerItem(
@@ -176,7 +173,9 @@ class _MeasureViewState extends State<MeasureView>
                     genderItems: timeItems,
                     onChanged: (value) {
                       //TODO 5s -> 5に変える必要がある
-                      time = value!;
+                      countdownText = value!;
+                      String newText = countdownText.replaceAll('s', '');
+                      countdown = int.parse(newText);
                     },
                   ),
                   AppSpaces.horizontal_8,
