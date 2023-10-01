@@ -7,44 +7,40 @@ class EmptyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/vector.png'),
-            AppSpaces.vertical_30,
-            Text(
-              '記録がありません\n'
-              ' 計測して記録を取りましょう',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.bold,
-                color: AppTheme.textColor,
-              ),
-            ),
-            AppSpaces.vertical_40,
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text(
-                '計測する',
+    return Expanded(
+      child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/vector.png'),
+              AppSpaces.vertical_30,
+              const Text(
+                '記録がありません\n'
+                ' 計測して記録を取りましょう',
+                textAlign: TextAlign.center,
                 style: TextStyle(
+                  fontSize: 17,
                   fontWeight: FontWeight.bold,
-                  color: AppTheme.appColor,
-                  fontSize: 20,
+                  color: AppTheme.textColor,
                 ),
               ),
-            ),
-          ],
+              AppSpaces.vertical_40,
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  '計測する',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.appColor,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
     );
   }
 }

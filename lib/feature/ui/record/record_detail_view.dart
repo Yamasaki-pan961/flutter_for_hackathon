@@ -51,20 +51,33 @@ class _RecordDetailViewState extends State<RecordDetailView> {
               ),
             ],
           ),
-          const DetailListTile(
-            icon: Icons.av_timer,
-            title: 'タイム',
-            content: '7.13s',
-          ),
-          const DetailListTile(
-            icon: Icons.directions_run,
-            title: '日付',
-            content: '2023/09/30',
-          ),
-          const DetailListTile(
-            icon: Icons.map,
-            title: '距離',
-            content: '50m',
+          Container(
+            padding: EdgeInsets.only(left: 16, right:16),
+            child: Column(
+              children: [
+                const DetailListTile(
+                  icon: Icons.av_timer,
+                  title: 'タイム',
+                  content: '7.13s',
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                const DetailListTile(
+                  icon: Icons.directions_run,
+                  title: '日付',
+                  content: '2023/09/30',
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                const DetailListTile(
+                  icon: Icons.map,
+                  title: '距離',
+                  content: '50m',
+                ),
+              ],
+            ),
           ),
         ],
       ),

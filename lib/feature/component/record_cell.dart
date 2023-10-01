@@ -2,22 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template_for_hackathon/common/theme/app_spaces.dart';
 import 'package:flutter_template_for_hackathon/common/theme/app_theme.dart';
 
-class RecordCell extends StatelessWidget {
-  const RecordCell({
-    Key? key,
+class RecordCellViewData {
+  RecordCellViewData({
     required this.icon,
     required this.subIcon,
-    required this.time,
-    required this.distance,
+    required this.name,
+    required this.headline,
     required this.date,
-    required this.onTap,
-  }) : super(key: key);
+});
 
   final IconData icon;
   final IconData subIcon;
-  final String time;
-  final String distance;
+  final String name;
+  final String headline;
   final String date;
+}
+
+class RecordCell extends StatelessWidget {
+  const RecordCell({
+    Key? key,
+    required this.viewData,
+    required this.onTap,
+  }) : super(key: key);
+
+  final RecordCellViewData viewData;
   final VoidCallback onTap;
 
   @override
@@ -28,14 +36,14 @@ class RecordCell extends StatelessWidget {
         backgroundColor: AppTheme.shade700Color,
         radius: 20,
         child: Icon(
-          icon,
+          viewData.icon,
           color: AppTheme.appColor,
         ),
       ),
       title: Row(
         children: [
           Text(
-            distance,
+            viewData.headline,
             style: TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.bold,
@@ -43,13 +51,13 @@ class RecordCell extends StatelessWidget {
             ),
           ),
           Icon(
-            subIcon,
+            viewData.subIcon,
             color: AppTheme.textColor,
           ),
         ],
       ),
       subtitle: Text(
-        date,
+        viewData.date,
         style: TextStyle(
           color: AppTheme.grey,
           fontSize: 13,
@@ -60,7 +68,7 @@ class RecordCell extends StatelessWidget {
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           Text(
-            time,
+            viewData.name,
             style: TextStyle(
               color: AppTheme.textColor,
               fontWeight: FontWeight.bold,

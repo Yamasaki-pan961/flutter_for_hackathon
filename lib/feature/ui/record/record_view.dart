@@ -15,33 +15,26 @@ class RecordView extends ConsumerWidget {
     return Scaffold(
       backgroundColor: AppTheme.backgroundColor,
       appBar: AppBar(
+        title: const Text(
+            '履歴一覧',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 19
+          ),
+        ),
         elevation: 0,
         backgroundColor: AppTheme.backgroundColor,
-        actions: [
-          //TODO emptyの画面を仮に出している。
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const EmptyScreen(),
-                ),
-              );
-            },
-            icon: const Icon(Icons.hourglass_empty),
-          ),
-        ],
       ),
       body: Column(
         children: [
           Container(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(16),
             width: double.infinity,
             child: SegmentedButton<int>(
               style: ButtonStyle(
                 side: MaterialStateProperty.resolveWith<BorderSide>(
                     (Set<MaterialState> states) {
-                  return BorderSide(
+                  return const BorderSide(
                     color: AppTheme.unSelectedColor,
                   );
                 }),
@@ -77,7 +70,7 @@ class RecordView extends ConsumerWidget {
                   label: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
-                      'timer run',
+                      'Timer',
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.bold,
@@ -90,7 +83,7 @@ class RecordView extends ConsumerWidget {
                   label: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
-                      'meter run',
+                      'Run',
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.bold,
@@ -102,7 +95,26 @@ class RecordView extends ConsumerWidget {
               selected: state,
             ),
           ),
-          _recordBody(state.single),
+          _recordBody(
+              state.single,
+            [],
+            [
+              RecordCellViewData(
+              name: '10.00s',
+              icon: Icons.directions_run,
+              subIcon: Icons.av_timer,
+              headline: '1000m',
+              date: '2023/09/30',
+            ),
+              RecordCellViewData(
+                name: '10.00s',
+                icon: Icons.directions_run,
+                subIcon: Icons.av_timer,
+                headline: '1000m',
+                date: '2023/09/30',
+              )
+            ]
+          ),
         ],
       ),
     );
@@ -111,53 +123,81 @@ class RecordView extends ConsumerWidget {
 
 Widget _recordBody(
   int value,
+    List<RecordCellViewData> timerList,
+    List<RecordCellViewData> runList
 ) {
   //TODO あとでモデルを入れる修正をする
   if (value == 0) {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: 2,
-        itemBuilder: (context, index) {
-          return RecordCell(
-            time: '7.32s',
-            icon: Icons.av_timer,
-            subIcon: Icons.directions_run,
-            distance: '50m',
-            date: '2023/09/30',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const RecordDetailView(),
+    if (timerList.isEmpty) {
+      return const EmptyScreen();
+    } else {
+      return Expanded(
+        child: ListView.builder(
+          itemCount: timerList.length,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                RecordCell(
+                  viewData: RecordCellViewData(
+                    name: '50m',
+                    icon: Icons.av_timer,
+                    subIcon: Icons.directions_run,
+                    headline: '7.32s',
+                    date: '2023/09/30',
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RecordDetailView(),
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          );
-        },
-      ),
-    );
+                const Divider(
+                  height: 1,
+                  indent: 16,
+                  endIndent: 16,
+                  color: AppTheme.unSelectedColor,
+                )
+              ],
+            );
+          },
+        ),
+      );
+    }
   } else {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: 2,
-        itemBuilder: (context, index) {
-          return RecordCell(
-            time: '50m',
-            icon: Icons.av_timer,
-            subIcon: Icons.directions_run,
-            distance: '7.32s',
-            date: '2023/09/30',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const RecordDetailView(),
+    if (runList.isEmpty) {
+      return const EmptyScreen();
+    } else {
+      return Expanded(
+        child: ListView.builder(
+          itemCount: runList.length,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                RecordCell(
+                  viewData: runList[index],
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RecordDetailView(),
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          );
-        },
-      ),
-    );
+                const Divider(
+                  height: 1,
+                  indent: 16,
+                  endIndent: 16,
+                  color: AppTheme.unSelectedColor,
+                )
+              ],
+            );
+          },
+        ),
+      );
+    }
   }
 }
