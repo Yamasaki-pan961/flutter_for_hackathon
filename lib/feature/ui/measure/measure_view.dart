@@ -120,7 +120,7 @@ class _MeasureViewState extends State<MeasureView>
                 children: [
                   AppSpaces.horizontal_16,
                   Text(
-                    'Timer',
+                    'StopWatch',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 40,
@@ -194,8 +194,7 @@ class _MeasureViewState extends State<MeasureView>
                     context,
                     MaterialPageRoute(
                       builder: (context) => MeasureStartView(
-                        // countdown: countdown,
-                        countdown: 5,
+                        countdown: countdown,
                       ),
                     ),
                   );
