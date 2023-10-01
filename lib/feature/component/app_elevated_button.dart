@@ -23,6 +23,9 @@ class AppElevatedButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 94),
       child: Center(
         child: Container(
+          alignment: Alignment.centerLeft,
+          height: 68,
+          width: 202,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(34),
@@ -49,10 +52,12 @@ class AppElevatedButton extends StatelessWidget {
               height: 68,
               width: 202,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   // Image.asset('assets/start.png'),
                   Image.asset(icon),
+                  const SizedBox(
+                    width: 10,
+                  ),
                   Text(
                     title,
                     style: const TextStyle(

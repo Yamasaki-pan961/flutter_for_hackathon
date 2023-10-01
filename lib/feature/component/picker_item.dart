@@ -33,7 +33,6 @@ class PickerItem extends StatelessWidget {
           child: DropdownButtonFormField2<String>(
             isExpanded: true,
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(vertical: 16),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(4),
                 borderSide: const BorderSide(

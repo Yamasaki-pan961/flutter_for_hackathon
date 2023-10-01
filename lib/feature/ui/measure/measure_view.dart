@@ -144,6 +144,7 @@ class _MeasureViewState extends State<MeasureView>
                 ],
               ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   AppSpaces.horizontal_8,

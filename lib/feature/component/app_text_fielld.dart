@@ -16,6 +16,7 @@ class AppTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width / 2.4,
+      height: 60,
       child: TextField(
         controller: controller,
         keyboardType: TextInputType.number,
