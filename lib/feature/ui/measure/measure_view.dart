@@ -174,7 +174,6 @@ class _MeasureViewState extends State<MeasureView>
                     genderItems: timeItems,
                     onChanged: (value) {
                       countdown = int.parse(value!);
-                      print(countdown);
                     },
                   ),
                   AppSpaces.horizontal_8,
