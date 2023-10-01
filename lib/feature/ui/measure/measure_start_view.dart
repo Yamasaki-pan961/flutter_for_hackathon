@@ -1,5 +1,4 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-import 'package:circular_countdown_timer/countdown_text_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template_for_hackathon/common/theme/app_theme.dart';
 
@@ -7,9 +6,13 @@ class MeasureStartView extends StatefulWidget {
   const MeasureStartView({
     Key? key,
     required this.countdown,
+    required this.time,
+    required this.distance,
   }) : super(key: key);
 
   final int countdown;
+  final int distance;
+  final int time;
 
   @override
   State<MeasureStartView> createState() => _MeasureStartViewState();

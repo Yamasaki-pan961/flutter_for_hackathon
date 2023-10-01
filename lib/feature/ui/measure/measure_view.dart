@@ -20,20 +20,20 @@ class _MeasureViewState extends State<MeasureView>
   bool isTimer = true;
 
   final List<String> timeItems = [
-    '3s',
-    '5s',
-    '7s',
-    '1s0',
+    '3',
+    '5',
+    '7',
+    '10',
   ];
 
   TextEditingController distanceTextController =
-      TextEditingController(text: '5s');
-  TextEditingController timeTextController = TextEditingController(text: '5s');
-  String countdownText = '5s';
+      TextEditingController(text: '20');
+  TextEditingController timeTextController = TextEditingController(text: '5');
+  String countdownText = '5';
 
   int timer = 0;
   int distance = 0;
-  int countdown = 0;
+  int countdown = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +120,7 @@ class _MeasureViewState extends State<MeasureView>
                 children: [
                   AppSpaces.horizontal_16,
                   Text(
-                    'Timer',
+                    'StopWatch',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 40,
@@ -150,9 +150,9 @@ class _MeasureViewState extends State<MeasureView>
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        '時間',
-                        style: TextStyle(
+                      Text(
+                        isTimer ? '距離(m)' : '時間(s)',
+                        style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                           color: AppTheme.appColor,
@@ -161,22 +161,19 @@ class _MeasureViewState extends State<MeasureView>
                       isTimer
                           ? AppTextField(
                               isTimer: false,
-                              controller: timeTextController,
+                              controller: distanceTextController,
                             )
                           : AppTextField(
                               isTimer: true,
-                              controller: distanceTextController,
+                              controller: timeTextController,
                             ),
                     ],
                   ),
                   PickerItem(
-                    title: 'スタートまで',
+                    title: 'スタートまで(s)',
                     genderItems: timeItems,
                     onChanged: (value) {
-                      //TODO 5s -> 5に変える必要がある
-                      countdownText = value!;
-                      String newText = countdownText.replaceAll('s', '');
-                      countdown = int.parse(newText);
+                      countdown = int.parse(value!);
                     },
                   ),
                   AppSpaces.horizontal_8,
@@ -189,13 +186,15 @@ class _MeasureViewState extends State<MeasureView>
                 buttonStart: AppTheme.buttonStart,
                 buttonEnd: AppTheme.buttonEnd,
                 onPressed: () {
-                  //TODO 計測画面に遷移をする
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => MeasureStartView(
-                        // countdown: countdown,
-                        countdown: 5,
+                        countdown: countdown,
+                        distance: !isTimer
+                            ? 0
+                            : int.parse(distanceTextController.text),
+                        time: isTimer ? 0 : int.parse(timeTextController.text),
                       ),
                     ),
                   );
