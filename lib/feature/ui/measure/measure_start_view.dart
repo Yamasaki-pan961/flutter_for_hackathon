@@ -85,7 +85,27 @@ class MeasureStartView extends HookConsumerWidget {
                 ),
               ),
             MeasureStatus.measured =>
-              Text(ref.watch(finishedTimeProvider).toString()),
+            Column(
+              children: [
+                const Text(
+                    '記録',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: AppTheme.appColor,
+                  ),
+                ),
+                Text(
+                    ref.watch(finishedTimeProvider).toString(),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                          color: Colors.white,
+                        ),
+                )
+              ],
+            ),
+              // Text(ref.watch(finishedTimeProvider).toString()),
             _ => const SizedBox.shrink(),
           }),
         ],
