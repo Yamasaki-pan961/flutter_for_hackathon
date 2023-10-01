@@ -68,7 +68,7 @@ class PickerItem extends StatelessWidget {
               padding: EdgeInsets.only(right: 8),
             ),
             hint: const Text(
-              '5s',
+              '5',
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.bold,

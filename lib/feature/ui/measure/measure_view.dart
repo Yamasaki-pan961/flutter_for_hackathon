@@ -20,16 +20,16 @@ class _MeasureViewState extends State<MeasureView>
   bool isTimer = true;
 
   final List<String> timeItems = [
-    '3s',
-    '5s',
-    '7s',
-    '1s0',
+    '3',
+    '5',
+    '7',
+    '10',
   ];
 
   TextEditingController distanceTextController =
       TextEditingController(text: '20');
   TextEditingController timeTextController = TextEditingController(text: '5');
-  String countdownText = '5s';
+  String countdownText = '5';
 
   int timer = 0;
   int distance = 0;
@@ -151,7 +151,7 @@ class _MeasureViewState extends State<MeasureView>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        isTimer ? '距離' : '時間',
+                        isTimer ? '距離(m)' : '時間(s)',
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
@@ -170,12 +170,11 @@ class _MeasureViewState extends State<MeasureView>
                     ],
                   ),
                   PickerItem(
-                    title: 'スタートまで',
+                    title: 'スタートまで(s)',
                     genderItems: timeItems,
                     onChanged: (value) {
-                      countdownText = value!;
-                      String newText = countdownText.replaceAll('s', '');
-                      countdown = int.parse(newText);
+                      countdown = int.parse(value!);
+                      print(countdown);
                     },
                   ),
                   AppSpaces.horizontal_8,
