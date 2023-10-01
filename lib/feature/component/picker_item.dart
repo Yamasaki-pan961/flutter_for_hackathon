@@ -35,9 +35,11 @@ class PickerItem extends StatelessWidget {
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(vertical: 16),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(4),
+                borderSide: const BorderSide(
+                  color: AppTheme.unSelectedColor,
+                ),
               ),
-              // Add more decoration..
             ),
             items: genderItems
                 .map((item) => DropdownMenuItem<String>(

@@ -29,157 +29,186 @@ class _MeasureViewState extends State<MeasureView>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppTheme.backgroundColor,
-      appBar: AppBar(
-        elevation: 0,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
         backgroundColor: AppTheme.backgroundColor,
-      ),
-      body: Column(
-        children: [
-          FourSwipeDirection(
-            swipeRight: () {
-              setState(() {
-                isTimer = !isTimer;
-              });
-            },
-            swipeLeft: () {
-              setState(() {
-                isTimer = !isTimer;
-              });
-            },
-            child: Stack(
-              children: [
-                Transform.translate(
-                  offset: const Offset(-125, 0),
-                  child: AnimatedContainer(
-                    margin: EdgeInsets.only(left: isTimer ? 0 : 75),
-                    duration: const Duration(milliseconds: 200),
-                    width: 300,
-                    height: 300,
-                    child: AnimatedPadding(
-                      duration: const Duration(milliseconds: 200),
-                      padding: EdgeInsets.only(
-                          top: isTimer ? 75 : 0, bottom: isTimer ? 75 : 0),
-                      child: CircleAvatar(
-                        backgroundColor: !isTimer
-                            ? AppTheme.textColor
-                            : AppTheme.shade700Color,
-                        child: Icon(
-                          Icons.av_timer,
-                          size: !isTimer ? 155 : 78,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Transform.translate(
-                    offset: const Offset(125, 0),
-                    child: AnimatedContainer(
-                      margin: EdgeInsets.only(right: !isTimer ? 0 : 75),
-                      duration: const Duration(milliseconds: 200),
-                      width: 300,
-                      height: 300,
-                      child: AnimatedPadding(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: AppTheme.backgroundColor,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              FourSwipeDirection(
+                swipeRight: () {
+                  setState(() {
+                    isTimer = !isTimer;
+                  });
+                },
+                swipeLeft: () {
+                  setState(() {
+                    isTimer = !isTimer;
+                  });
+                },
+                child: Stack(
+                  children: [
+                    Transform.translate(
+                      offset: const Offset(-125, 0),
+                      child: AnimatedContainer(
+                        margin: EdgeInsets.only(left: isTimer ? 0 : 75),
                         duration: const Duration(milliseconds: 200),
-                        padding: EdgeInsets.only(
-                            top: !isTimer ? 75 : 0, bottom: !isTimer ? 75 : 0),
-                        child: CircleAvatar(
-                          backgroundColor: isTimer
-                              ? AppTheme.textColor
-                              : AppTheme.shade700Color,
-                          child: Icon(
-                            Icons.directions_run,
-                            size: isTimer ? 155 : 78,
+                        width: 300,
+                        height: 300,
+                        child: AnimatedPadding(
+                          duration: const Duration(milliseconds: 200),
+                          padding: EdgeInsets.only(
+                              top: isTimer ? 75 : 0, bottom: isTimer ? 75 : 0),
+                          child: CircleAvatar(
+                            backgroundColor: !isTimer
+                                ? AppTheme.textColor
+                                : AppTheme.shade700Color,
+                            child: Icon(
+                              Icons.av_timer,
+                              size: !isTimer ? 155 : 78,
+                            ),
                           ),
                         ),
                       ),
                     ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Transform.translate(
+                        offset: const Offset(125, 0),
+                        child: AnimatedContainer(
+                          margin: EdgeInsets.only(right: !isTimer ? 0 : 75),
+                          duration: const Duration(milliseconds: 200),
+                          width: 300,
+                          height: 300,
+                          child: AnimatedPadding(
+                            duration: const Duration(milliseconds: 200),
+                            padding: EdgeInsets.only(
+                                top: !isTimer ? 75 : 0,
+                                bottom: !isTimer ? 75 : 0),
+                            child: CircleAvatar(
+                              backgroundColor: isTimer
+                                  ? AppTheme.textColor
+                                  : AppTheme.shade700Color,
+                              child: Icon(
+                                Icons.directions_run,
+                                size: isTimer ? 155 : 78,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              AppSpaces.vertical_16,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AppSpaces.horizontal_16,
+                  Text(
+                    'Timer',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40,
+                      color: !isTimer
+                          ? AppTheme.textColor
+                          : AppTheme.backgroundColor,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          AppSpaces.vertical_16,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              AppSpaces.horizontal_16,
-              Text(
-                'Timer',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 40,
-                  color:
-                      !isTimer ? AppTheme.textColor : AppTheme.backgroundColor,
-                ),
+                  const Spacer(),
+                  Text(
+                    'Timer',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40,
+                      color: isTimer
+                          ? AppTheme.textColor
+                          : AppTheme.backgroundColor,
+                    ),
+                  ),
+                  AppSpaces.horizontal_16,
+                ],
               ),
-              const Spacer(),
-              Text(
-                'Timer',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 40,
-                  color:
-                      isTimer ? AppTheme.textColor : AppTheme.backgroundColor,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AppSpaces.horizontal_8,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '時間',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: AppTheme.appColor,
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 2.4,
+                        child: TextField(
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: const BorderSide(
+                                color: AppTheme.unSelectedColor,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: const BorderSide(
+                                color: AppTheme.unSelectedColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  PickerItem(
+                    title: 'スタートまで',
+                    genderItems: timeItems,
+                    onChanged: (value) {
+                      //TODO 5s -> 5に変える必要がある
+                      time = value!;
+                    },
+                  ),
+                  AppSpaces.horizontal_8,
+                ],
               ),
-              AppSpaces.horizontal_16,
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              AppSpaces.horizontal_8,
-              // PickerItem(
-              //   title: '距離',
-              //   genderItems: distanceItems,
-              //   onChanged: (value) {
-              //     distance = value!;
-              //   },
-              // ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 2.4,
-                child: TextField(),
-              ),
-              PickerItem(
-                title: 'スタートまで',
-                genderItems: timeItems,
-                onChanged: (value) {
-                  //TODO 5s -> 5に変える必要がある
-                  time = value!;
+              AppSpaces.vertical_60,
+              AppElevatedButton(
+                icon: 'assets/start.png',
+                title: 'Ready',
+                buttonStart: AppTheme.buttonStart,
+                buttonEnd: AppTheme.buttonEnd,
+                onPressed: () {
+                  //TODO 計測画面に遷移をする
                 },
-              ),
-              AppSpaces.horizontal_8,
+              )
             ],
           ),
-          AppSpaces.vertical_60,
-          AppElevatedButton(
-            icon: 'assets/start.png',
-            title: 'Ready',
-            buttonStart: AppTheme.buttonStart,
-            buttonEnd: AppTheme.buttonEnd,
-            onPressed: () {
-              //TODO 計測画面に遷移をする
-            },
-          )
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppTheme.shade700Color,
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const RecordView(),
-            ),
-          );
-        },
-        child: const Icon(
-          Icons.history,
-          color: Colors.white,
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: AppTheme.shade700Color,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const RecordView(),
+              ),
+            );
+          },
+          child: const Icon(
+            Icons.history,
+            color: Colors.white,
+          ),
         ),
       ),
     );
