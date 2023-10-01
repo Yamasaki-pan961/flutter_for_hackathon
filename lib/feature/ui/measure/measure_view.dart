@@ -1,7 +1,9 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template_for_hackathon/common/theme/app_spaces.dart';
 import 'package:flutter_template_for_hackathon/common/theme/app_theme.dart';
+import 'package:flutter_template_for_hackathon/feature/component/app_elevated_button.dart';
+import 'package:flutter_template_for_hackathon/feature/component/picker_item.dart';
+import 'package:flutter_template_for_hackathon/feature/ui/record/record_view.dart';
 import 'package:four_swipe_direction/four_swipe_direction.dart';
 
 class MeasureView extends StatefulWidget {
@@ -14,12 +16,23 @@ class MeasureView extends StatefulWidget {
 class _MeasureViewState extends State<MeasureView>
     with SingleTickerProviderStateMixin {
   bool isTimer = true;
-  final List<String> genderItems = [
+
+  //距離
+  //TODO 項目をあとで確認する
+  final List<String> distanceItems = [
     'Male',
     'Female',
   ];
 
-  String? selectedValue;
+  //スタートまで
+  //TODO 項目をあとで確認する
+  final List<String> timeItems = [
+    'Male',
+    'Female',
+  ];
+
+  String distance = '';
+  String time = '';
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +41,6 @@ class _MeasureViewState extends State<MeasureView>
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppTheme.backgroundColor,
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.history,
-          color: Colors.white,
-        ),
-        backgroundColor: AppTheme.shade700Color,
-        onPressed: (){},
       ),
       body: Column(
         children: [
@@ -135,155 +140,50 @@ class _MeasureViewState extends State<MeasureView>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               AppSpaces.horizontal_8,
-              PickerItem(title: '距離', genderItems: genderItems),
-              PickerItem(title: 'スタートまで', genderItems: genderItems),
+              PickerItem(
+                title: '距離',
+                genderItems: distanceItems,
+                onChanged: (value) {
+                  distance = value!;
+                },
+              ),
+              PickerItem(
+                title: 'スタートまで',
+                genderItems: timeItems,
+                onChanged: (value) {
+                  time = value!;
+                },
+              ),
               AppSpaces.horizontal_8,
             ],
           ),
           AppSpaces.vertical_60,
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 94),
-            child: Center(
-              child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(34),
-                        topRight: Radius.circular(6.8),
-                        bottomRight: Radius.circular(34),
-                        bottomLeft: Radius.circular(6.8)
-                    ),
-                    gradient: LinearGradient(
-                      begin: FractionalOffset.centerLeft,
-                      end: FractionalOffset.centerRight,
-                      colors: <Color>[
-                        AppTheme.buttonStart,
-                        AppTheme.buttonEnd,
-                      ],
-                      stops: const [
-                        0.0,
-                        1.0,
-                      ],
-                    ),
-                  ),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                    ),
-                    onPressed: () {},
-                    child: Container(
-                      height: 68,
-                      width: 202,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Image.asset('assets/start.png'),
-                          const Text(
-                            'Ready',
-                            style: TextStyle(
-                              fontSize: 28.9,
-                              fontWeight: FontWeight.bold,
-                              color: AppTheme.backgroundColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                ),
-              ),
-            ),
-          ),
+          AppElevatedButton(
+            icon: 'assets/start.png',
+            title: 'Ready',
+            buttonStart: AppTheme.buttonStart,
+            buttonEnd: AppTheme.buttonEnd,
+            onPressed: () {
+              //TODO 計測画面に遷移をする
+            },
+          )
         ],
       ),
-    );
-  }
-}
-
-class PickerItem extends StatelessWidget {
-  const PickerItem({
-    Key? key,
-    required this.title,
-    required this.genderItems,
-  }) : super(key: key);
-
-  final String title;
-  final List<String> genderItems;
-
-  @override
-  Widget build(BuildContext context) {
-    String selectedValue = '';
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: AppTheme.appColor,
-          ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppTheme.shade700Color,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const RecordView(),
+            ),
+          );
+        },
+        child: const Icon(
+          Icons.history,
+          color: Colors.white,
         ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width / 2.4,
-          height: 60,
-          child: DropdownButtonFormField2<String>(
-            isExpanded: true,
-            decoration: InputDecoration(
-              // Add Horizontal padding using menuItemStyleData.padding so it matches
-              // the menu padding when button's width is not specified.
-              contentPadding: const EdgeInsets.symmetric(vertical: 16),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              // Add more decoration..
-            ),
-            hint: const Text(
-              'Select Your Gender',
-              style: TextStyle(fontSize: 14),
-            ),
-            items: genderItems
-                .map((item) => DropdownMenuItem<String>(
-                      value: item,
-                      child: Text(
-                        item,
-                        style: const TextStyle(
-                          fontSize: 14,
-                        ),
-                      ),
-                    ))
-                .toList(),
-            validator: (value) {
-              if (value == null) {
-                return 'Please select gender.';
-              }
-              return null;
-            },
-            onChanged: (value) {
-              //Do something when selected item is changed.
-            },
-            onSaved: (value) {
-              selectedValue = value.toString();
-            },
-            buttonStyleData: const ButtonStyleData(
-              padding: EdgeInsets.only(right: 8),
-            ),
-            iconStyleData: const IconStyleData(
-              icon: Icon(
-                Icons.arrow_drop_down,
-                color: Colors.black45,
-              ),
-              iconSize: 24,
-            ),
-            dropdownStyleData: DropdownStyleData(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-              ),
-            ),
-            menuItemStyleData: const MenuItemStyleData(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
