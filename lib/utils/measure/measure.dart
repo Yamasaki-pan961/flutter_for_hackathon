@@ -16,8 +16,13 @@ Vector3 nowVelocity = Vector3.zero();
 /// 設定された距離を移動したら、[callback]が実行される関数
 ///
 /// [meter]ｍ移動すると[callback]が実行される
-Future<List<MeterRecord>> measureMeter(int meter, Function() callback) async {
-  final container = ProviderContainer();
+Future<List<MeterRecord>> measureMeter(
+    int meter,
+    void Function(
+      Duration finishedTime,
+    ) callback,
+    WidgetRef ref) async {
+  final container = ref;
   final completer = Completer<void>();
   final meterLog = <MeterRecord>[];
 
@@ -32,9 +37,10 @@ Future<List<MeterRecord>> measureMeter(int meter, Function() callback) async {
     return MeasuredData.fromEvent(accelerometerEvent, gyroscopeEvent, duration);
   }).listen((measuredData) {
     final meterRecord = measure(measuredData, container);
+    print(meterRecord.meter);
     if (meter <= meterRecord.meter) {
       completer.complete();
-      callback();
+      callback(getNowDate().difference(logStartTime));
     }
   });
 
@@ -43,7 +49,7 @@ Future<List<MeterRecord>> measureMeter(int meter, Function() callback) async {
   return meterLog;
 }
 
-MeterRecord measure(MeasuredData measuredData, ProviderContainer container) {
+MeterRecord measure(MeasuredData measuredData, WidgetRef container) {
   final lastMeasure = container.read(lastMeasureProvider);
   if (lastMeasure != null) {
     final addedDistance =
@@ -55,7 +61,7 @@ MeterRecord measure(MeasuredData measuredData, ProviderContainer container) {
 }
 
 double _calcAddedDistance(
-    MeasuredData before, MeasuredData after, ProviderContainer container) {
+    MeasuredData before, MeasuredData after, WidgetRef container) {
   final durationDiff =
       (after.duration - before.duration).inMicroseconds / (1000 * 1000);
 
@@ -72,7 +78,7 @@ double _calcAddedDistance(
 
   final relativeX = addedDistance.x * cos(nowRotation.y) * cos(nowRotation.z);
   final relativeY = addedDistance.y * cos(nowRotation.z) * cos(nowRotation.x);
-  final relativeZ = addedDistance.x * cos(nowRotation.x) * cos(nowRotation.y);
+  final relativeZ = addedDistance.z * cos(nowRotation.x) * cos(nowRotation.y);
 
   final relativeDistance = Vector3(relativeX, relativeY, relativeZ);
   return relativeDistance.distanceTo(Vector3.zero());

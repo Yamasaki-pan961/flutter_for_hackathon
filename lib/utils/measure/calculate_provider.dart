@@ -4,7 +4,7 @@ import 'package:vector_math/vector_math_64.dart';
 
 part 'calculate_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class LastMeasure extends _$LastMeasure {
   @override
   MeasuredData? build() => null;
@@ -12,7 +12,7 @@ class LastMeasure extends _$LastMeasure {
   void update(MeasuredData value) => state = value;
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Meter extends _$Meter {
   @override
   double build() => 0;
@@ -21,7 +21,7 @@ class Meter extends _$Meter {
 }
 
 
-@riverpod
+@Riverpod(keepAlive: true)
 class LastVelocity extends _$LastVelocity {
   @override
   Vector3 build() => Vector3.zero();
@@ -29,7 +29,7 @@ class LastVelocity extends _$LastVelocity {
   void update(Vector3 value) => state = value;
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class LastRotation extends _$LastRotation {
   @override
   Vector3 build() => Vector3.zero();

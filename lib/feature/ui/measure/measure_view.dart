@@ -1,42 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_template_for_hackathon/common/theme/app_spaces.dart';
 import 'package:flutter_template_for_hackathon/common/theme/app_theme.dart';
 import 'package:flutter_template_for_hackathon/feature/component/app_elevated_button.dart';
 import 'package:flutter_template_for_hackathon/feature/component/app_text_fielld.dart';
 import 'package:flutter_template_for_hackathon/feature/component/picker_item.dart';
+import 'package:flutter_template_for_hackathon/feature/ui/measure/measure_provider.dart';
 import 'package:flutter_template_for_hackathon/feature/ui/measure/measure_start_view.dart';
 import 'package:flutter_template_for_hackathon/feature/ui/record/record_view.dart';
 import 'package:four_swipe_direction/four_swipe_direction.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MeasureView extends StatefulWidget {
-  const MeasureView({Key? key}) : super(key: key);
-
-  @override
-  State<MeasureView> createState() => _MeasureViewState();
-}
-
-class _MeasureViewState extends State<MeasureView>
-    with SingleTickerProviderStateMixin {
-  bool isTimer = true;
-
-  final List<String> timeItems = [
-    '3s',
-    '5s',
-    '7s',
-    '1s0',
-  ];
-
-  TextEditingController distanceTextController =
-      TextEditingController(text: '5s');
-  TextEditingController timeTextController = TextEditingController(text: '5s');
-  String countdownText = '5s';
-
-  int timer = 0;
-  int distance = 0;
-  int countdown = 0;
+class MeasureView extends HookConsumerWidget {
+  const MeasureView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final timeInputController = useTextEditingController();
+    final distanceInputController = useTextEditingController();
+    final isTimer = ref.watch(measureModeProvider) == MeasureModeType.timer;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -50,14 +32,14 @@ class _MeasureViewState extends State<MeasureView>
             children: [
               FourSwipeDirection(
                 swipeRight: () {
-                  setState(() {
-                    isTimer = !isTimer;
-                  });
+                  ref
+                      .read(measureModeProvider.notifier)
+                      .update(MeasureModeType.distance);
                 },
                 swipeLeft: () {
-                  setState(() {
-                    isTimer = !isTimer;
-                  });
+                  ref
+                      .read(measureModeProvider.notifier)
+                      .update(MeasureModeType.timer);
                 },
                 child: Stack(
                   children: [
@@ -161,22 +143,23 @@ class _MeasureViewState extends State<MeasureView>
                       isTimer
                           ? AppTextField(
                               isTimer: false,
-                              controller: timeTextController,
+                              controller: distanceInputController,
                             )
                           : AppTextField(
                               isTimer: true,
-                              controller: distanceTextController,
+                              controller: timeInputController,
                             ),
                     ],
                   ),
                   PickerItem(
                     title: 'スタートまで',
-                    genderItems: timeItems,
+                    genderItems: const ['3s', '5s', '7s', '10s'],
                     onChanged: (value) {
                       //TODO 5s -> 5に変える必要がある
-                      countdownText = value!;
-                      String newText = countdownText.replaceAll('s', '');
-                      countdown = int.parse(newText);
+                      if (value != null) {
+                        String newText = value.replaceAll('s', '');
+                        ref.read(countdownProvider.notifier).update(int.parse(newText));
+                      }
                     },
                   ),
                   AppSpaces.horizontal_8,
@@ -189,14 +172,13 @@ class _MeasureViewState extends State<MeasureView>
                 buttonStart: AppTheme.buttonStart,
                 buttonEnd: AppTheme.buttonEnd,
                 onPressed: () {
-                  //TODO 計測画面に遷移をする
+                  ref
+                      .read(inMeasureProvider.notifier)
+                      .update(MeasureStatus.waitingCountdown);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MeasureStartView(
-                        // countdown: countdown,
-                        countdown: 5,
-                      ),
+                      builder: (context) => const MeasureStartView(),
                     ),
                   );
                 },

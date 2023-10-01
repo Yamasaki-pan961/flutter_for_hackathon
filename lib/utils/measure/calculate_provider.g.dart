@@ -6,12 +6,12 @@ part of 'calculate_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$lastMeasureHash() => r'a5719d2ff385956d104b330db503dd016a53188c';
+String _$lastMeasureHash() => r'5d76b90592a4c232c5161b952d92a07a1dddd130';
 
 /// See also [LastMeasure].
 @ProviderFor(LastMeasure)
 final lastMeasureProvider =
-    AutoDisposeNotifierProvider<LastMeasure, MeasuredData?>.internal(
+    NotifierProvider<LastMeasure, MeasuredData?>.internal(
   LastMeasure.new,
   name: r'lastMeasureProvider',
   debugGetCreateSourceHash:
@@ -20,12 +20,12 @@ final lastMeasureProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$LastMeasure = AutoDisposeNotifier<MeasuredData?>;
-String _$meterHash() => r'eea0651bdf4948caab0483544be2423b1e55a29b';
+typedef _$LastMeasure = Notifier<MeasuredData?>;
+String _$meterHash() => r'805999c8d537895cf3b18ec515153ab52b2fca1d';
 
 /// See also [Meter].
 @ProviderFor(Meter)
-final meterProvider = AutoDisposeNotifierProvider<Meter, double>.internal(
+final meterProvider = NotifierProvider<Meter, double>.internal(
   Meter.new,
   name: r'meterProvider',
   debugGetCreateSourceHash:
@@ -34,13 +34,12 @@ final meterProvider = AutoDisposeNotifierProvider<Meter, double>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef _$Meter = AutoDisposeNotifier<double>;
-String _$lastVelocityHash() => r'79d991ec8453b8d22f2f1e18ceff3dc2e209821b';
+typedef _$Meter = Notifier<double>;
+String _$lastVelocityHash() => r'781808765359272cb94fde3601f4dee249f0684a';
 
 /// See also [LastVelocity].
 @ProviderFor(LastVelocity)
-final lastVelocityProvider =
-    AutoDisposeNotifierProvider<LastVelocity, Vector3>.internal(
+final lastVelocityProvider = NotifierProvider<LastVelocity, Vector3>.internal(
   LastVelocity.new,
   name: r'lastVelocityProvider',
   debugGetCreateSourceHash:
@@ -49,13 +48,12 @@ final lastVelocityProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$LastVelocity = AutoDisposeNotifier<Vector3>;
-String _$lastRotationHash() => r'3a26d0e3fc893996226f035cc4240dfb6e0481b6';
+typedef _$LastVelocity = Notifier<Vector3>;
+String _$lastRotationHash() => r'045cf09ec182dc1550c828146e7a1c32974e7ab2';
 
 /// See also [LastRotation].
 @ProviderFor(LastRotation)
-final lastRotationProvider =
-    AutoDisposeNotifierProvider<LastRotation, Vector3>.internal(
+final lastRotationProvider = NotifierProvider<LastRotation, Vector3>.internal(
   LastRotation.new,
   name: r'lastRotationProvider',
   debugGetCreateSourceHash:
@@ -64,6 +62,6 @@ final lastRotationProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$LastRotation = AutoDisposeNotifier<Vector3>;
+typedef _$LastRotation = Notifier<Vector3>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
