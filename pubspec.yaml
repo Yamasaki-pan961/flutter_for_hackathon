@@ -24,6 +24,7 @@ dependencies:
   four_swipe_direction: ^0.0.4
   dropdown_button2: ^2.3.9
   vector_math: ^2.1.4
+  circular_countdown_timer: ^0.2.3
 
 dev_dependencies:
   flutter_test:

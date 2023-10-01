@@ -4,6 +4,7 @@ import 'package:flutter_template_for_hackathon/common/theme/app_theme.dart';
 import 'package:flutter_template_for_hackathon/feature/component/app_elevated_button.dart';
 import 'package:flutter_template_for_hackathon/feature/component/app_text_fielld.dart';
 import 'package:flutter_template_for_hackathon/feature/component/picker_item.dart';
+import 'package:flutter_template_for_hackathon/feature/ui/measure/measure_start_view.dart';
 import 'package:flutter_template_for_hackathon/feature/ui/record/record_view.dart';
 import 'package:four_swipe_direction/four_swipe_direction.dart';
 
@@ -189,6 +190,15 @@ class _MeasureViewState extends State<MeasureView>
                 buttonEnd: AppTheme.buttonEnd,
                 onPressed: () {
                   //TODO 計測画面に遷移をする
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MeasureStartView(
+                        // countdown: countdown,
+                        countdown: 5,
+                      ),
+                    ),
+                  );
                 },
               )
             ],
